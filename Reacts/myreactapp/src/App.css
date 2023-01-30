@@ -1,0 +1,145 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.banner-card{
+  background-color: white;
+  width: 100vw;
+}
+
+.banner-img{
+  height: 70vh;
+  width: 100%;
+
+}
+
+.banner-title{
+  position: absolute;
+  color: white;
+  top: 50vh;
+  left: 5vw;
+
+}
+
+.banner-text{
+  position: absolute;
+  color: white;
+  top: 60vh;
+  left: 5vh;
+  margin-right: 5vw;
+}
+
+.movies-list{
+  position: absolute;
+  top: 95vh;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  justify-content: center;
+
+}
+
+/* .text-center{
+  position: absolute;
+  
+} */
+/* ak teri yaade hi thi jiske sahare tujhe yaad krte the tune  */
+
+.movies-card{
+  width: 20vw;
+  margin: 1rem;
+  color:white;
+  position: relative;
+
+}
+
+.movies-title{
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.movies-button{
+  position: absolute;
+  top: 70%;
+}
+
+.button-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.pagination{
+  display: flex;
+  justify-content: center;
+}
+/* upto */
+
+@media screen and (max-width:400px){
+  .banner-card{
+    height: 25vh;
+  }
+  
+  .banner-img{
+    height: 30vh;
+  }
+
+  .banner-title{
+    top:10vh;
+    left:5vw;
+  }
+
+  .banner-text{
+    top:15vh;
+    left: 5vw;
+  }
+  .movies-card{
+    width: 40vw;
+    margin: 0.1rem;
+
+  }
+  .movies-button{
+    width: 80%;
+  }
+  .movies-img{
+    width: 40vw;
+  }
+
+
+
+}
