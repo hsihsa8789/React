@@ -26,6 +26,10 @@ export default class List extends Component {
     })
   }
 
+  handlePageNum = (pageNum) =>{
+
+  }
+
   changeMovies = async () => {
       // console.log("componentDidMount is called");
       // console.log(API_KEY);
@@ -54,17 +58,17 @@ export default class List extends Component {
   }
 
   handlePrevious = () =>{
-    let tempArr = [];
-    for(let i=this.state.parr.length;i>=1;i--){
-      tempArr.pop(i);
+    if(this.state.currPage!=1){
+      this.setState({
+        currPage : this.state.currPage - 1
+      },this.changeMovies)
     }
-    this.setState({
-      parr: [...tempArr],
-      currPage : this.state.currPage - 1
-    },this.changeMovies)
-    console.log(this.state.currPage);
-  
+  }
 
+  handlePageNum = (pageNum) =>{
+    this.setState({
+      currPage : pageNum
+    },this.changeMovies)
   }
 
   async componentDidMount() {
@@ -131,7 +135,7 @@ export default class List extends Component {
               {
               this.state.parr.map((pageNum) => (
               <li class = "page-item">
-              <a class="page-link" href="#">{pageNum}</a>
+              <a class="page-link" onClick ={() => {this.handlePageNum(pageNum) }}>{pageNum}</a>
               </li>
                ))
               }
