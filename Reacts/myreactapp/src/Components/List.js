@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // import { movies } from './getMovies'
 import axios from 'axios'   // axios(is just like a fetch and cherio) npm library it help to endpoint par request marne me help krta hai
+import { json } from 'react-router-dom';
 // import API_KEY from "./secrets";
 
 export default class List extends Component {
@@ -11,6 +12,7 @@ export default class List extends Component {
       parr:[1],
       currPage:1,
       movies:[],
+      favMov:[]
     }
   }
 
@@ -82,6 +84,25 @@ export default class List extends Component {
       movies: [...ans.data.results], //[{},{},{}]
     });
   }
+
+  handelFavrout = (movieObj) => {
+    let localStorageMovies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    if(this.state.favMov.includes(movieObj.id)){
+      localStorageMovies = localStorageMovies.filter((movie) => movie.id != movieObj.id)
+    }
+    else{
+      localStorageMovies.push(movieObj);
+    }
+    localStorage.setItem('movies',JSON.stringify(localStorageMovies));
+    let tempData = localStorageMovies.map(movieObj => movieObj.id);
+    this.setState({
+      favMov : [...tempData]
+    });
+
+  }
+
+
   
 
   render() {
@@ -115,7 +136,9 @@ export default class List extends Component {
                  {/* <p class="card-text banner-text">{movieObj.overview}</p> */}
                 <div className='button-wrapper'>
                   {this.state.hover === movieObj.id &&
-                    <a href="#" class="btn btn-primary movies-button">Go somewhere</a>}
+                    <a href="#" class="btn btn-primary movies-button" onClick={() => this.handelFavrout(movieObj)}>
+                      {this.state.favMov.includes(movieObj.id)?"Remove from Favourites":"Add to Favourites"}</a>}
+
                 </div>
                   {/*  </div> */}
                </div>

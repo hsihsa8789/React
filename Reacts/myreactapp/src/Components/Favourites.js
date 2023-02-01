@@ -7,16 +7,18 @@ export default class Favourites extends Component {
         this.state = {
             movies : [],
             genre : [],
-            currGener : "All Genre"
+            currGener : "All Genre",
+            currText : " ",
         }
     } 
 
     async componentDidMount() {
         // console.log("componentDidMount is called");
         // console.log(API_KEY);
-        let ans = await axios.get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=c900eedb12db3475789baf86e1a105a7&language=en-US&page=1`
-        );
+        // let ans = await axios.get(
+        //   `https://api.themoviedb.org/3/movie/popular?api_key=c900eedb12db3475789baf86e1a105a7&language=en-US&page=1`
+        // );
+        let results = JSON.parse(localStorage.getItem("movies"));
 
         let genreId = {
             28: "Action",
@@ -41,15 +43,15 @@ export default class Favourites extends Component {
           };
         
         let genreArr = [];  // help to collect the uniques gener in this array
-        ans.data.results.map((movieObj) => {
+        results.map((movieObj) => {
             if(!genreArr.includes(genreId[movieObj.genre_ids[0]])){
                genreArr.push(genreId[movieObj.genre_ids[0]])
             }
         });
-        console.log(ans.data);
+        // console.log(ans.data);
         genreArr.unshift("All Genre")
         this.setState({
-          movies: [...ans.data.results], //[{},{},{}]
+          movies: [...results], //[{},{},{}]
           genre : [...genreArr]
         });
 
@@ -58,6 +60,12 @@ export default class Favourites extends Component {
         this.setState({
             currGener: genre,
         })
+    }
+
+    handleText = (e) =>{
+      this.setState({
+        currText : e.target.value,
+      });
     }
 
       
@@ -83,6 +91,14 @@ export default class Favourites extends Component {
         10752: "War",
         37: "Western",
       };
+
+    let filteredMovies = [];
+    if(this.state.currGener != "All Genre"){
+      filteredMovies = this.state.movies.filter((movieObj) => genreId[movieObj.genre_ids[0]] == this.state.currGener);
+    }else{
+      filteredMovies = this.state.movies;
+    }
+
     return (
     <div class="row">
         <div class="col-3">
@@ -97,7 +113,7 @@ export default class Favourites extends Component {
         </div>
           <div class="col">
             <div class="row">
-                <input type="text" className="col" placeholder="Search"></input>
+                <input type="text" className="col" placeholder="Search" value={this.state.currText} onChange={this.handleText}></input>
                 <input type="number" className="col" placeholder="5"></input>
             </div>
             <div class="row">
@@ -106,13 +122,18 @@ export default class Favourites extends Component {
                  <tr>
                    <th scope="col">Title</th>
                    <th scope="col">Genere</th>
-                   <th scope="col">Popularity</th>
-                   <th scope="col">Rating</th>
+                   
+                   <th scope="col"><i class="fa-solid fa-caret-up"/>Popularity
+                   <i class="fa-solid fa-caret-down"/></th>
+
+                   <th scope="col"><i class="fa-solid fa-caret-up"/>Rating
+                   <i class="fa-solid fa-caret-down"/></th>
+
                    <th scope="col"></th>
                  </tr>
                </thead>
              <tbody>
-            {this.state.movies.map((movieObj) => (
+            {filteredMovies.map((movieObj) => (
               <tr>
                 <td scope="row"><img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} style={{width:'6rem'}}/>{movieObj.original_title}</td>
                 <td>{genreId[movieObj.genre_ids[0]]}</td>
