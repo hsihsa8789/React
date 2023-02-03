@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import { movies } from './getMovies'
 import axios from 'axios'   // axios(is just like a fetch and cherio) npm library it help to endpoint par request marne me help krta hai
-import { json } from 'react-router-dom';
+// import { json } from 'react-router-dom'
 // import API_KEY from "./secrets";
 
 export default class List extends Component {
