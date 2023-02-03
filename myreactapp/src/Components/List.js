@@ -28,10 +28,6 @@ export default class List extends Component {
     })
   }
 
-  handlePageNum = (pageNum) =>{
-
-  }
-
   changeMovies = async () => {
       // console.log("componentDidMount is called");
       // console.log(API_KEY);
@@ -101,10 +97,7 @@ export default class List extends Component {
     });
 
   }
-
-
   
-
   render() {
     // console.log("render is callled");
     // let movie = movies.results;
